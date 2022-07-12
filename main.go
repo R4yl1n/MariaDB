@@ -7,17 +7,45 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var responseDB = make([]models.MariaDB, 0)
+var responseDBA = make([]models.MariaDB, 0) //response as an Array
+var resp models.MariaDB                     //response as single struct
 
 func main() {
 
 	app := fiber.New()
 
-	app.Get("api/getall", func(c *fiber.Ctx) error {
-		responseDB = models.Getall()
-		log.Print(responseDB)
+	app.Get("api/datas", func(c *fiber.Ctx) error {
+		responseDBA = models.Getall()
 
-		return c.JSON(responseDB)
+		return c.JSON(responseDBA)
+	})
+
+	app.Post("api/datas", func(c *fiber.Ctx) error {
+		if err := c.BodyParser(&resp); err != nil {
+			return err
+		}
+		log.Print(resp)
+
+		return c.JSON(models.Inserdata(resp))
+
+	})
+
+	app.Patch("api/datas", func(c *fiber.Ctx) error {
+
+		if err := c.BodyParser(&resp); err != nil {
+			return err
+		}
+		log.Print(resp)
+
+		return c.JSON((models.Replacenumber(resp)))
+	})
+
+	app.Delete("api/datas", func(c *fiber.Ctx) error {
+		if err := c.BodyParser(&resp); err != nil {
+			return err
+		}
+
+		return c.SendString(models.Deletedatas(resp))
 	})
 
 	log.Fatal(app.Listen(":4000"))
