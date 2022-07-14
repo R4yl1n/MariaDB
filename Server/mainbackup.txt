@@ -16,7 +16,6 @@ func main() {
 
 	app.Get("api/datas", func(c *fiber.Ctx) error {
 		responseDBA = models.Getall()
-		log.Print(responseDBA)
 
 		return c.JSON(responseDBA)
 	})
@@ -46,7 +45,22 @@ func main() {
 			return err
 		}
 
-		return c.JSON(models.Deletedatas(resp))
+		return c.SendString(models.Deletedatas(resp))
+	})
+
+	app.Get("api/datas/:Vorname", func(c *fiber.Ctx) error {
+		vorname := c.Params("Vorname", "Vorname")
+		responseDBA = models.Getjust(vorname)
+
+		if len(responseDBA) > 0 {
+
+			return c.JSON(responseDBA)
+
+		}
+
+		returnerror := "firstname " + vorname + " not found"
+		log.Print(returnerror)
+		return c.SendString(returnerror)
 	})
 
 	log.Fatal(app.Listen(":4000"))

@@ -18,7 +18,7 @@ func Getall() []MariaDB {
 	if err != nil {
 		log.Panic(err)
 	}
-	log.Println("connected succesfuly to the DB")
+	log.Println("Get Request Done")
 	defer db.Close()
 
 	rows, _ := db.Query(`SELECT * FROM infos`)
@@ -48,6 +48,7 @@ func Inserdata(body MariaDB) []MariaDB {
 	if err != nil {
 		log.Panic(err)
 	}
+	log.Printf("Post request Done of %v", body)
 	defer db.Close()
 
 	_, err = db.Exec(`INSERT INTO infos(Vorname, Nachname, Telnummer) VALUES(?,?,?)`,
@@ -64,6 +65,7 @@ func Replacenumber(body MariaDB) []MariaDB {
 	if err != nil {
 		log.Panic(err)
 	}
+	log.Printf("Patch request Done for %v", body)
 	defer db.Close()
 
 	_, err = db.Exec(`UPDATE infos SET Telnummer=? Where Vorname=? && Nachname=?`, body.Telnummer, body.Vorname, body.Nachname)
@@ -74,17 +76,45 @@ func Replacenumber(body MariaDB) []MariaDB {
 	return resp
 }
 
-func Deletedatas(body MariaDB) []MariaDB {
+func Deletedatas(body MariaDB) string {
 	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
 	if err != nil {
 		log.Panic(err)
 	}
+	log.Printf("Delete request Done for %v", body)
 	defer db.Close()
 
 	_, err = db.Exec(`DELETE FROM infos WHERE Vorname=? && Nachname=?`, body.Vorname, body.Nachname)
 	if err != nil {
 		log.Fatal(err)
 	}
-	resp := Getall()
-	return resp
+	Getall()
+	return "Succesfully deleted " + " " + body.Vorname + " " + body.Nachname + " " + body.Telnummer
+}
+
+func Getjust(vorname string) []MariaDB {
+	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
+	if err != nil {
+		log.Panic(err)
+	}
+	log.Println("Get Request Done")
+	defer db.Close()
+
+	rows, _ := db.Query(`SELECT * FROM infos WHERE Vorname=?`, vorname)
+	if err != nil {
+		log.Fatal("error 1// ", err)
+	}
+
+	mariadatas := make([]MariaDB, 0)
+	for rows.Next() {
+		var mariadb MariaDB
+		err2 := rows.Scan(&mariadb.Vorname, &mariadb.Nachname, &mariadb.Telnummer)
+		if err2 != nil {
+			log.Fatal("error 2// ", err2)
+		}
+		mariadatas = append(mariadatas, mariadb)
+	}
+	log.Println(mariadatas)
+	return mariadatas
+
 }

@@ -91,3 +91,30 @@ func Deletedatas(body MariaDB) string {
 	Getall()
 	return "Succesfully deleted " + " " + body.Vorname + " " + body.Nachname + " " + body.Telnummer
 }
+
+func Getjust(vorname string) []MariaDB {
+	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
+	if err != nil {
+		log.Panic(err)
+	}
+	log.Println("Get Request Done")
+	defer db.Close()
+
+	rows, _ := db.Query(`SELECT * FROM infos WHERE Vorname=?`, vorname)
+	if err != nil {
+		log.Fatal("error 1// ", err)
+	}
+
+	mariadatas := make([]MariaDB, 0)
+	for rows.Next() {
+		var mariadb MariaDB
+		err2 := rows.Scan(&mariadb.Vorname, &mariadb.Nachname, &mariadb.Telnummer)
+		if err2 != nil {
+			log.Fatal("error 2// ", err2)
+		}
+		mariadatas = append(mariadatas, mariadb)
+	}
+	log.Println(mariadatas)
+	return mariadatas
+
+}
