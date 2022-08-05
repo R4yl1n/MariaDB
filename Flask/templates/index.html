@@ -5,6 +5,11 @@
     <title>Phonebook</title>
 </head>
 <body>
-    <p>{{ value }}</p>
+    {%for values in value %}
+    <p>{{ values["vorname"] }}</p>
+    <p>{{ values["nachname"] }}</p>
+    <p>{{ values["telnummer"] }}</p>
+
+    {% endfor %}
 </body>
 </html>
