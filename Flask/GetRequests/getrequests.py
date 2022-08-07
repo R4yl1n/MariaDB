@@ -9,7 +9,7 @@ import json
 
 def getRequests():
     try:
-        r = requests.get("127.0.0.1/api/datas")#return array dict
+        r = requests.get("http://127.0.0.1:4000/api/datas")#return array dict
         data = json.loads(r.text)
         return data
     except:
