@@ -2,9 +2,11 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/microsoft/go-mssqldb"
 )
 
 type MariaDB struct {
@@ -13,8 +15,17 @@ type MariaDB struct {
 	Telnummer string `json:"telnummer"`
 }
 
+var server = "myphonebook.database.windows.net"
+var port = 1433
+var user = "DeBoss"
+var password = "Neonalbaner8953"
+var database = "DeBoss"
+
 func Getall() []MariaDB {
-	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
+		server, user, password, port, database)
+
+	db, err := sql.Open("sqlserver", connString)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -44,15 +55,18 @@ func Getall() []MariaDB {
 }
 
 func Inserdata(body MariaDB) []MariaDB {
-	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
+		server, user, password, port, database)
+
+	db, err := sql.Open("sqlserver", connString)
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Printf("Post request Done of %v", body)
 	defer db.Close()
 
-	_, err = db.Exec(`INSERT INTO infos(Vorname, Nachname, Telnummer) VALUES(?,?,?)`,
-		body.Vorname, body.Nachname, body.Telnummer)
+	ready := fmt.Sprintf(`INSERT INTO infos(Vorname, Nachname, Telnummer) VALUES('%s','%s','%s')`, body.Vorname, body.Nachname, body.Telnummer)
+	_, err = db.Exec(ready)
 	if err != nil {
 		log.Fatal("while Inserting an error ocurred \n", err)
 	}
@@ -61,7 +75,10 @@ func Inserdata(body MariaDB) []MariaDB {
 }
 
 func Replacenumber(body MariaDB) []MariaDB {
-	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
+		server, user, password, port, database)
+
+	db, err := sql.Open("sqlserver", connString)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -77,14 +94,18 @@ func Replacenumber(body MariaDB) []MariaDB {
 }
 
 func Deletedatas(body MariaDB) string {
-	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
+		server, user, password, port, database)
+
+	db, err := sql.Open("sqlserver", connString)
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Printf("Delete request Done for %v", body)
 	defer db.Close()
 
-	_, err = db.Exec(`DELETE FROM infos WHERE Vorname=? && Nachname=?`, body.Vorname, body.Nachname)
+	ready := fmt.Sprintf(`DELETE FROM infos WHERE Vorname='%s' AND Nachname='%s'`, body.Vorname, body.Nachname)
+	_, err = db.Exec(ready)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -93,14 +114,18 @@ func Deletedatas(body MariaDB) string {
 }
 
 func Getjust(vorname string) []MariaDB {
-	db, err := sql.Open("mysql", "root:Admin1234!@tcp(192.168.1.246:3306)/test?parseTime=True")
+	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
+		server, user, password, port, database)
+
+	db, err := sql.Open("sqlserver", connString)
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Println("Get Request Done")
 	defer db.Close()
 
-	rows, _ := db.Query(`SELECT * FROM infos WHERE Vorname=?`, vorname)
+	ready := fmt.Sprintf(`SELECT * FROM infos WHERE Vorname='%s'`, vorname)
+	rows, _ := db.Query(ready)
 	if err != nil {
 		log.Fatal("error 1// ", err)
 	}

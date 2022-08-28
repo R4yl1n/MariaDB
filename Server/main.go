@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/R4yl1n/MariaDB/models"
+	models "github.com/R4yl1n/MariaDB/Models"
 	"github.com/gofiber/fiber/v2"
 )
 
