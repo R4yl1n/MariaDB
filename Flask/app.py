@@ -31,3 +31,5 @@ def helloWorld():
         deleterequests.deleterequests(firstname,familyname,telnummer)
         return redirect("http://Localhost:5000")
 
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0')
