@@ -21,7 +21,7 @@ def helloWorld():
         telnummer = request.form["telnummer"]
 
         postrequests.postRequests(firstname,familyname,telnummer)
-        return redirect("http://Localhost:5000")
+        return redirect("http://127.0.0.1:80")
 
     if request.method == "DELETE":
         firstname = request.form["firstname"]
@@ -29,7 +29,7 @@ def helloWorld():
         telnummer = request.form["telnummer"]
 
         deleterequests.deleterequests(firstname,familyname,telnummer)
-        return redirect("http://Localhost:5000")
+        return redirect("http://127.0.0.1:80")
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
