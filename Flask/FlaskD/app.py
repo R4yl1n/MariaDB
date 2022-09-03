@@ -1,5 +1,6 @@
 #to activate venv  inside of Falsk dir -> PowerShell = venv/Scripts/activate
 #to use as main file ->    $env:FLASK_APP = "main.py"
+#run instance python3 -m flask run --host=0.0.0.0
 from contextlib import _RedirectStream, redirect_stderr, redirect_stdout
 from urllib import request
 from flask import Flask, render_template, request, url_for,redirect
@@ -21,7 +22,7 @@ def helloWorld():
         telnummer = request.form["telnummer"]
 
         postrequests.postRequests(firstname,familyname,telnummer)
-        return redirect("http://127.0.0.1:80")
+        return redirect("http://20.91.193.124:80")
 
     if request.method == "DELETE":
         firstname = request.form["firstname"]
@@ -29,7 +30,7 @@ def helloWorld():
         telnummer = request.form["telnummer"]
 
         deleterequests.deleterequests(firstname,familyname,telnummer)
-        return redirect("http://127.0.0.1:80")
+        return redirect("http://20.91.193.124:80")
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
