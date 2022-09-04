@@ -1,35 +1,34 @@
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Phonebook</title>
-</head>
-<body>
-    <form  method = "post">
-        <p>enter a new contact:</p>
-        <p><input type = "text" name = "firstname" placeholder="firstname" /></p>
-        <p><input type = "text" name = "familyname" placeholder="familyname" /></p>
-        <p><input type = "text" name = "telnummer" placeholder="telnummer" /></p>
-
-        <p><input type = "submit" value = "submit" /></p>
-     </form> 
-
-     <form  method = "get">
-        <p>delete a contact:</p>
-        <p><input type = "text" name = "firstname" placeholder="firstname" /></p>
-        <p><input type = "text" name = "familyname" placeholder="familyname" /></p>
-        <p><input type = "text" name = "telnummer" placeholder="telnummer" /></p>
-
-        <p><input type = "submit" value = "submit" /></p>
-     </form> 
-
-    {%for values in value %}
-    <div>
-        <p>{{ values["vorname"] }}
-        {{ values["nachname"] }}
-        {{ values["telnummer"] }}</p>
-    </div>
-
-    {% endfor %}
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Phonebook</title>
+    </head>
+    <body>
+        <form  method = "post" target="_self">
+            <h2>enter a new contact:</h2>
+            <p><input type = "text" name = "firstname" placeholder="firstname" /></p>
+            <p><input type = "text" name = "familyname" placeholder="familyname" /></p>
+            <p><input type = "text" name = "telnummer" placeholder="telnummer" /></p>
+    
+            <p><input type = "submit" value = "submit" /></p>
+         </form> 
+    
+         <p></p><a href="http://20.91.193.124">Delete a contact</a>delete request still not ready</p>
+         <h3>Motivation speech</h3>
+         <p>"what you can do today better do it tomorrow" </br>	@Raylin 05.08.02 - jetzt</p>
+        <h2>Contact</h2>
+        {%for values in value %}
+        <div>
+            <p>{{ values["vorname"] }}
+            {{ values["nachname"] }}
+            {{ values["telnummer"] }}</p>
+        </div>
+            {% endfor %}
+    
+        <h3>Motivation speech</h3>
+        <p>"in some webpages i just got an terminal" </br> 	@SAM 30.09.2022 12:05</p>
+    </body>
+    </html>
+    
