@@ -22,13 +22,13 @@ func osIsValid() {
 		gosh.PowershellCommand(`
 		cd Server
 
-		docker build ./
+		docker build -t raylin366/mybackend ./
 
 		cd ..
 
 		cd Flask
 
-		docker build ./
+		docker build -t raylin366/myfrontend ./
 		`)
 
 	case "bash":
