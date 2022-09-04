@@ -18,21 +18,21 @@ func osIsValid() {
 
 	switch answer {
 	case "powershell":
-		fmt.Println("you picked poweshell")
+		fmt.Println("you picked poweshell please wait it can take up to 3 minutes")
 		gosh.PowershellCommand(`
 		cd Server
 
-		docker build -t raylin366/mybackend ./
+		docker build -t api ./
 
 		cd ..
 
 		cd Flask
 
-		docker build -t raylin366/myfrontend ./
+		docker build -t website ./
 		`)
 
 	case "bash":
-		fmt.Println("you picked bash")
+		fmt.Println("you picked bash please wait it can take up to 3 minutes")
 		gosh.ShellCommand(`
 		cd Server
 
