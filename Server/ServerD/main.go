@@ -22,7 +22,8 @@ func main() {
 
 	app.Post("api/datas", func(c *fiber.Ctx) error {
 		if err := c.BodyParser(&resp); err != nil {
-			return err
+			log.Println("error while Post request wrong format")
+			return c.SendString("wrong input format everything should be string maybe missing quotation")
 		}
 		log.Print(resp)
 
