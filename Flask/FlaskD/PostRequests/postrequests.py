@@ -18,7 +18,7 @@ def postRequests(vorname, nachname, telnummer):
             return "please check the format something went wrong"
 
     try:
-        r = requests.post("http://127.0.0.1:4000/api/datas",datas)
+        r = requests.post("http://20.91.193.124:4000/api/datas",datas)
         return "succes"
     except:
 

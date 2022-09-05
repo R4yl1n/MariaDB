@@ -13,8 +13,8 @@ app = Flask(__name__)
 
 def helloWorld():
     if request.method == "GET":
-        this = getrequests.getRequests()
-        return render_template("index.html",value=this)
+        getResponse = getrequests.getRequests()
+        return render_template("index.html",value=getResponse)
 
     if request.method == "POST":
         firstname = request.form["firstname"]
