@@ -13,16 +13,22 @@ app = Flask(__name__)
 
 def helloWorld():
     if request.method == "GET":
-        this = getrequests.getRequests()
-        return render_template("index.html",value=this)
+        getResponse = getrequests.getRequests()
+        return render_template("index.html",value=getResponse)
 
     if request.method == "POST":
         firstname = request.form["firstname"]
         familyname = request.form["familyname"]
         telnummer = request.form["telnummer"]
 
-        postrequests.postRequests(firstname,familyname,telnummer)
-        return redirect("http://20.91.193.124:80")
+        try:
+            postrequests.postRequests(firstname,familyname,telnummer)
+            print("Post request succefuly")
+            return redirect("http://20.91.193.124:80")
+        except:
+            errorpost = postrequests.postRequests(firstname,familyname,telnummer)
+            print("Post request failed")
+            return render_template("index.html", errorhandling=errorpost)
 
     if request.method == "DELETE":
         firstname = request.form["firstname"]
