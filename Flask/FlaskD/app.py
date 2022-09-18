@@ -49,11 +49,11 @@ def delete():
         familyname = request.form["familyname"]
         telnummer = request.form["telnummer"]   
         try:
-            deleterequests.deleteRequests(firstname,familyname,telnummer)
+            deleterequests.deleterequests(firstname,familyname,telnummer)
             print("Delete request succefuly")
             return redirect("http://20.91.193.124:80")
         except:
-            errorpost = deleterequests.deleteRequests(firstname,familyname,telnummer)
+            errorpost = deleterequests.deleterequests(firstname,familyname,telnummer)
             print("Delete request failed")
             return render_template("index.html", errorhandling=errorpost)
 
