@@ -40,15 +40,14 @@ def helloWorld():
       
 @app.route("/delete",methods = ["POST","GET"])
 def delete():
-  if request.method == "GET":
+    if request.method == "GET":
         getResponse = getrequests.getRequests()
         return render_template("Delete.html",value=getResponse)
 
     if request.method == "POST":
         firstname = request.form["firstname"]
         familyname = request.form["familyname"]
-        telnummer = request.form["telnummer"]
-
+        telnummer = request.form["telnummer"]   
         try:
             deleterequests.deleteRequests(firstname,familyname,telnummer)
             print("Delete request succefuly")
