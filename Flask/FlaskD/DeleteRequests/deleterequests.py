@@ -8,3 +8,6 @@ def deleterequests(vorname,nachname,telnummer):
         'telnummer':telnummer
     }
     r = requests.delete("http://127.0.0.1:4000/api/datas",data)
+
+
+#wrong delete request 
