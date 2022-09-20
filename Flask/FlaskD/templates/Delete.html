@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <style>
+         body {
+         font-family: 'Poppins', sans-serif;
+         background-image: linear-gradient(to right, rgb(165, 180, 252), rgb(192, 132, 252));
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         }
+      </style>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+      <script src="https://cdn.tailwindcss.com"></script>
+      <title>Phonebook</title>
+   </head>
+   <body>
+      <div class="contact-form w-full max-w-lg mt-14">
+         <form method="post" target="_self" class="mb-4 rounded-md bg-white px-8 pt-6 pb-8 shadow-2xl shadow-gray-800">
+            <h2 class="mb-9 text-center text-2xl">Enter a new contact</h2>
+            <div class="my-8">
+               <label class="mb-2 block text-sm font-bold text-gray-700" for="firstname">First Name</label>
+               <input class="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 text-gray-700 shadow border-gray-400 focus:outline-none" type="text" name="firstname" placeholder="First Name" />
+            </div>
+            <div class="my-8">
+               <label class="mb-2 block text-sm font-bold text-gray-700" for="familyname">Family Name</label>
+               <input class="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 text-gray-700 shadow border-gray-400 focus:outline-none" type="text" name="familyname" placeholder="Family Name" />
+            </div>
+            <div class="my-8">
+               <label class="mb-2 block text-sm font-bold text-gray-700" for="telnummer">Tel Nummer</label>
+               <input class="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 text-gray-700 shadow border-gray-400 focus:outline-none" type="text" name="telnummer" placeholder="telnummer" />
+            </div>
+            <div class="flex items-center justify-center">
+               <input class="focus:shadow-outline rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none" type="submit" value="submit" />
+            </div>
+         </form>
+      </div>
+      <div class="mt-6 w-full max-w-lg">
+         <a href="http://20.91.193.124" class="focus:shadow-outline rounded bg-red-500 px-4 py-2 text-white hover:bg-red-700 focus:outline-none">
+         Delete a contact
+         </a>
+      <p class="my-3 text-sm font-normal italic text-gray-700">delete request still not ready</p>
+      </div>
+      <h3>Motivation speech</h3>
+      <p>
+         "what you can do today better do it tomorrow" <br />
+         @Raylin 05.08.02 - jetzt
+      </p>
+      <h2>Contact</h2>             
+      {%for values in value %}
+      <div>
+         <p>{{ values["vorname"] }} {{ values["nachname"] }} {{ values["telnummer"] }}</p>
+      </div>
+      {% endfor %}
+      <h3>Motivation speech</h3>
+      <p>
+         "in some webpages i just got an terminal" <br />
+         @SAM 30.09.2022 12:05
+      </p>
+   </body>
+</html>

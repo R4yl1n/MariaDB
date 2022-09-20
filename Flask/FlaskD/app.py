@@ -37,6 +37,27 @@ def helloWorld():
 
         deleterequests.deleterequests(firstname,familyname,telnummer)
         return redirect("http://20.91.193.124:80")
+      
+@app.route("/delete",methods = ["POST","GET"])
+def delete():
+  if request.method == "GET":
+        getResponse = getrequests.getRequests()
+        return render_template("Delete.html",value=getResponse)
+
+    if request.method == "POST":
+        firstname = request.form["firstname"]
+        familyname = request.form["familyname"]
+        telnummer = request.form["telnummer"]
+
+        try:
+            deleterequests.deleteRequests(firstname,familyname,telnummer)
+            print("Delete request succefuly")
+            return redirect("http://20.91.193.124:80")
+        except:
+            errorpost = deleterequests.deleteRequests(firstname,familyname,telnummer)
+            print("Delete request failed")
+            return render_template("index.html", errorhandling=errorpost)
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
