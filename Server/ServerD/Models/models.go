@@ -6,7 +6,6 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/microsoft/go-mssqldb"
 )
 
 type MariaDB struct {
@@ -15,24 +14,22 @@ type MariaDB struct {
 	Telnummer string `json:"telnummer"`
 }
 
-var server = "myphonebook.database.windows.net"
-var port = 1433
+var server = "20.91.193.124"
+var port = 3306
 var user = "DeBoss"
 var password = "Neonalbaner8953"
 var database = "DeBoss"
 
 func Getall() []MariaDB {
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
-
-	db, err := sql.Open("sqlserver", connString)
+	
+	db, err := sql.Open("mysql", "backend:Neonalbaner8953@tcp(20.91.193.124:3306)/DeBoss")
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Println("Get Request Done")
 	defer db.Close()
 
-	rows, _ := db.Query(`SELECT * FROM infos`)
+	rows, _ := db.Query(`SELECT * FROM Persons`)
 	if err != nil {
 		log.Fatal("error 1// ", err)
 	}
@@ -55,17 +52,16 @@ func Getall() []MariaDB {
 }
 
 func Inserdata(body MariaDB) []MariaDB {
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
+	
 
-	db, err := sql.Open("sqlserver", connString)
+	db, err := sql.Open("mysql", "backend:Neonalbaner8953@tcp(20.91.193.124:3306)/DeBoss")
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Printf("Post request Done of %v", body)
 	defer db.Close()
 
-	ready := fmt.Sprintf(`INSERT INTO infos(Vorname, Nachname, Telnummer) VALUES('%s','%s','%s')`, body.Vorname, body.Nachname, body.Telnummer)
+	ready := fmt.Sprintf(`INSERT INTO Persons(Vorname, Nachname, Telnummer) VALUES('%s','%s','%s')`, body.Vorname, body.Nachname, body.Telnummer)
 	_, err = db.Exec(ready)
 	if err != nil {
 		log.Fatal("while Inserting an error ocurred \n", err)
@@ -75,17 +71,15 @@ func Inserdata(body MariaDB) []MariaDB {
 }
 
 func Replacenumber(body MariaDB) []MariaDB {
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
 
-	db, err := sql.Open("sqlserver", connString)
+	db, err := sql.Open("mysql", "backend:Neonalbaner8953@tcp(20.91.193.124:3306)/DeBoss")
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Printf("Patch request Done for %v", body)
 	defer db.Close()
 
-	_, err = db.Exec(`UPDATE infos SET Telnummer=? Where Vorname=? && Nachname=?`, body.Telnummer, body.Vorname, body.Nachname)
+	_, err = db.Exec(`UPDATE Persons SET Telnummer=? Where Vorname=? && Nachname=?`, body.Telnummer, body.Vorname, body.Nachname)
 	if err != nil {
 		log.Fatal("while replacing the number an error ocurred \n", err)
 	}
@@ -94,17 +88,15 @@ func Replacenumber(body MariaDB) []MariaDB {
 }
 
 func Deletedatas(body MariaDB) string {
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
 
-	db, err := sql.Open("sqlserver", connString)
+	db, err := sql.Open("mysql", "backend:Neonalbaner8953@tcp(20.91.193.124:3306)/DeBoss")
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Printf("Delete request Done for %v", body)
 	defer db.Close()
 
-	ready := fmt.Sprintf(`DELETE FROM infos WHERE Vorname='%s' AND Nachname='%s'`, body.Vorname, body.Nachname)
+	ready := fmt.Sprintf(`DELETE FROM Persons WHERE Vorname='%s' AND Nachname='%s'`, body.Vorname, body.Nachname)
 	_, err = db.Exec(ready)
 	if err != nil {
 		log.Fatal(err)
@@ -114,17 +106,15 @@ func Deletedatas(body MariaDB) string {
 }
 
 func Getjust(vorname string) []MariaDB {
-	connString := fmt.Sprintf("server=%s;user id=%s;password=%s;port=%d;database=%s;",
-		server, user, password, port, database)
 
-	db, err := sql.Open("sqlserver", connString)
+	db, err := sql.Open("mysql", "backend:Neonalbaner8953@tcp(20.91.193.124:3306)/DeBoss")
 	if err != nil {
 		log.Panic(err)
 	}
 	log.Println("Get Request Done")
 	defer db.Close()
 
-	ready := fmt.Sprintf(`SELECT * FROM infos WHERE Vorname='%s'`, vorname)
+	ready := fmt.Sprintf(`SELECT * FROM Persons WHERE Vorname='%s'`, vorname)
 	rows, _ := db.Query(ready)
 	if err != nil {
 		log.Fatal("error 1// ", err)
