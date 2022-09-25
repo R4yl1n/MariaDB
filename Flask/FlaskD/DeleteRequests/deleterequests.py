@@ -16,4 +16,4 @@ def deleterequests(vorname,nachname,telnummer):
     r = requests.delete(url=url,data=json.dumps(payload),headers=headers)
 
 
-#wrong delete request 
+ 
